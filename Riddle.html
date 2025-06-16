@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Riddle Generator</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: #fefefe;
+      transition: background 0.5s;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 600px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      background: white;
+      animation: fadeIn 0.5s ease;
+    }
+
+    h1 {
+      color: #4b0082;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4b0082;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #6a0dad;
+    }
+
+    .answer {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #333;
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🤔 Riddle Me This!</h1>
+    <p id="riddle">Click the button to get a riddle.</p>
+    <p id="answer" class="answer">Answer appears here.</p>
+    <button onclick="generateRiddle()">New Riddle</button>
+    <button onclick="toggleAnswer()">Reveal Answer</button>
+  </div>
+
+  <audio id="ding" src="https://www.soundjay.com/button/sounds/button-16.mp3" preload="auto"></audio>
+
+  <script>
+    const riddles = [
+      {
+        question: "What has keys but can’t open locks?",
+        answer: "A piano."
+      },
+      {
+        question: "What comes once in a minute, twice in a moment, but never in a thousand years?",
+        answer: "The letter M."
+      },
+      {
+        question: "I speak without a mouth and hear without ears. What am I?",
+        answer: "An echo."
+      },
+      {
+        question: "What has hands but can’t clap?",
+        answer: "A clock."
+      },
+      {
+        question: "What can travel around the world while staying in the same corner?",
+        answer: "A stamp."
+      }
+    ];
+
+    let currentRiddle = null;
+
+    function generateRiddle() {
+      const index = Math.floor(Math.random() * riddles.length);
+      currentRiddle = riddles[index];
+      document.getElementById("riddle").textContent = currentRiddle.question;
+      document.getElementById("answer").style.display = "none";
+      document.getElementById("answer").textContent = currentRiddle.answer;
+      changeBackground();
+      playSound();
+    }
+
+    function toggleAnswer() {
+      const answer = document.getElementById("answer");
+      answer.style.display = answer.style.display === "none" ? "block" : "none";
+    }
+
+    function changeBackground() {
+      const colors = ["#fef6e4", "#dbe7f0", "#f0d9ff", "#d3f9d8", "#fde2e2"];
+      document.body.style.background = colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    function playSound() {
+      document.getElementById("ding").play();
+    }
+  </script>
+
+</body>
+</html>
